@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="twister@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.0">
+    <root id="1"/>
+    <database id="2" parent="1" name="twister">
+      <ObjectId>24587</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <IntrospectionTimestamp>2017-02-25.23:40:20.690</IntrospectionTimestamp>
+      <IntrospectionStateNumber>827</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="4" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="5" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="6" parent="2" name="pg_temp_1">
+      <ObjectId>11848</ObjectId>
+    </schema>
+    <schema id="7" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11849</ObjectId>
+    </schema>
+    <schema id="8" parent="2" name="information_schema">
+      <ObjectId>12113</ObjectId>
+    </schema>
+    <sequence id="9" parent="3" name="id_sequence">
+      <ObjectId>24588</ObjectId>
+      <StateNumber>621</StateNumber>
+      <SequenceIdentity>1</SequenceIdentity>
+    </sequence>
+    <table id="10" parent="3" name="posts">
+      <ObjectId>25034</ObjectId>
+      <StateNumber>827</StateNumber>
+    </table>
+    <table id="11" parent="3" name="users">
+      <ObjectId>24593</ObjectId>
+      <StateNumber>827</StateNumber>
+    </table>
+    <column id="12" parent="10" name="post_id">
+      <Position>1</Position>
+      <DataType>bigint|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>827</StateNumber>
+      <DefaultExpression>nextval(&apos;id_sequence&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="13" parent="10" name="post_user_id">
+      <Position>2</Position>
+      <DataType>bigint|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>827</StateNumber>
+    </column>
+    <column id="14" parent="10" name="post_text">
+      <Position>3</Position>
+      <DataType>varchar(140)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>827</StateNumber>
+    </column>
+    <column id="15" parent="10" name="post_date">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>827</StateNumber>
+    </column>
+    <index id="16" parent="10" name="posts_pkey">
+      <ObjectId>25038</ObjectId>
+      <ColNames>post_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="17" parent="10" name="posts_pkey">
+      <ObjectId>25039</ObjectId>
+      <ColNames>post_id</ColNames>
+      <UnderlyingIndexName>posts_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="18" parent="10" name="posts_post_user_id_fkey">
+      <ObjectId>25040</ObjectId>
+      <ColNames>post_user_id</ColNames>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pkey</RefKeyName>
+      <RefColNames>user_id</RefColNames>
+    </foreign-key>
+    <column id="19" parent="11" name="user_id">
+      <Position>1</Position>
+      <DataType>bigint|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>623</StateNumber>
+      <DefaultExpression>nextval(&apos;id_sequence&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="20" parent="11" name="user_name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>623</StateNumber>
+    </column>
+    <column id="21" parent="11" name="user_pass">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>623</StateNumber>
+    </column>
+    <column id="22" parent="11" name="user_role">
+      <Position>4</Position>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>623</StateNumber>
+    </column>
+    <column id="23" parent="11" name="user_avatar">
+      <Position>5</Position>
+      <DataType>bytea|0</DataType>
+      <StateNumber>623</StateNumber>
+    </column>
+    <index id="24" parent="11" name="users_pkey">
+      <ObjectId>24600</ObjectId>
+      <ColNames>user_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="25" parent="11" name="users_user_name_key">
+      <ObjectId>24602</ObjectId>
+      <ColNames>user_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="26" parent="11" name="users_pkey">
+      <ObjectId>24601</ObjectId>
+      <ColNames>user_id</ColNames>
+      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <key id="27" parent="11" name="users_user_name_key">
+      <ObjectId>24603</ObjectId>
+      <ColNames>user_name</ColNames>
+      <UnderlyingIndexName>users_user_name_key</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/twister.iml" filepath="$PROJECT_DIR$/.idea/modules/twister.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/twister_main.iml" filepath="$PROJECT_DIR$/.idea/modules/twister_main.iml" group="twister" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/twister_test.iml" filepath="$PROJECT_DIR$/.idea/modules/twister_test.iml" group="twister" />
+    </modules>
+  </component>
+</project>
