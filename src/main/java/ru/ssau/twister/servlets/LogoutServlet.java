@@ -1,7 +1,5 @@
 package ru.ssau.twister.servlets;
 
-import ru.ssau.twister.utils.ApplicationConstants;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +12,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().removeAttribute(ApplicationConstants.USER_ATTRIBUTE_NAME);
+        request.getSession().invalidate();
         response.sendRedirect("/login");
     }
 }

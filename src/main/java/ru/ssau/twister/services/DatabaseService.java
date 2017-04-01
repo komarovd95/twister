@@ -48,6 +48,14 @@ public class DatabaseService {
         }
     }
 
+    public PreparedStatement prepareStatement(String sql, int mode) {
+        try {
+            return connection.prepareStatement(sql, mode);
+        } catch (SQLException e) {
+            throw new RuntimeException("Exception occurred while preparing statement", e);
+        }
+    }
+
     public void withTransaction(Consumer<Connection> connectionConsumer) {
         try {
             connectionConsumer.accept(Objects.requireNonNull(connection));

@@ -55,10 +55,10 @@
     border-top-right-radius: 0;
 }
 
-.form-signin .alert {
+form .alert {
     display: none;
 }
 
-.form-signin.error .alert {
+form.error .alert {
     display: block;
 }

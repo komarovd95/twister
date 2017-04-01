@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            Optional<User> user = userDao.findByUsername(credentials.getUsername());
+            Optional<User> user = userDao.findUserCredentialsByName(credentials.getUsername());
 
             if (user.map(User::getPassword).filter(p -> p.equals(credentials.getPassword())).isPresent()) {
                 session.setAttribute(ApplicationConstants.USER_ATTRIBUTE_NAME, user.get());

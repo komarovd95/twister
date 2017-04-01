@@ -1,14 +1,9 @@
 package ru.ssau.twister.domain;
 
 public class User {
-    public enum UserRole {
-        ADMIN, MANAGER, USER
-    }
-
     private Long id;
     private String username;
     private String password;
-    private UserRole role;
     private byte[] avatar;
 
     public Long getId() {
@@ -33,14 +28,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
     public byte[] getAvatar() {

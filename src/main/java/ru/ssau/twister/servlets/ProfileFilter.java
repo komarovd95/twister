@@ -2,6 +2,7 @@ package ru.ssau.twister.servlets;
 
 import ru.ssau.twister.dao.UserDao;
 import ru.ssau.twister.domain.User;
+import ru.ssau.twister.utils.ApplicationConstants;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -14,7 +15,9 @@ import java.util.regex.Pattern;
 @WebFilter(filterName = "ProfileFilter", urlPatterns = "/*")
 public class ProfileFilter implements Filter {
     private static final Pattern PATTERN = Pattern.compile("^/[a-zA-Z0-9_]{4,20}$");
-    private static final String[] PRESERVED_PATHS = new String[] { "/login", "/register", "/edit", "/search" };
+    private static final String[] PRESERVED_PATHS = new String[] {
+            "/login", "/loginRequest", "/register", "/edit", "/search"
+    };
 
     private UserDao userDao;
 
@@ -29,7 +32,10 @@ public class ProfileFilter implements Filter {
         String uri = ((HttpServletRequest) request).getRequestURI();
 
         if (PATTERN.matcher(uri).matches() && Arrays.stream(PRESERVED_PATHS).noneMatch(s -> s.equals(uri))) {
-            Optional<User> user = userDao.findByUsername(uri.substring(1));
+            Optional<User> user = userDao.findUserFullGraphByName(
+                    uri.substring(1),
+                    ((User) ((HttpServletRequest) request).getSession()
+                            .getAttribute(ApplicationConstants.USER_ATTRIBUTE_NAME)));
 
             if (user.isPresent()) {
                 request.setAttribute("userProfile", user.get());

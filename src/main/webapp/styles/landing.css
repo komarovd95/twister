@@ -41,19 +41,38 @@
     padding: 15px;
 }
 
-.sidebar img {
-    width: 100%;
+.crop {
+    position: relative;
+}
+
+.crop img {
+    margin: auto;
+    position: absolute;
+    top: -100%;
+    right: -100%;
+    bottom: -100%;
+    left: -100%;
+}
+
+.square {
+    overflow: hidden;
     border-radius: 50%;
-    border: 1px solid #c5c5c5;
-    box-sizing: border-box;
-    object-fit: cover;
-    margin-bottom: 15px;
+}
+
+.square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
 }
 
 .sidebar h4 {
     text-align: center;
     font-weight: bolder;
     margin-bottom: 15px;
+}
+
+.sidebar p {
+    text-align: center;
 }
 
 .posts-feed {

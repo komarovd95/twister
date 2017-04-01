@@ -35,28 +35,25 @@
             }
         </script>
 
-        <form class="${not empty requestScope.errorMessage ? 'error' : ''}">
+        <form id="editForm" class="${not empty requestScope.errorMessage ? 'error' : ''}" enctype="multipart/form-data"
+              action="editRequest" method="post" onsubmit="return editProfileSubmit();">
             <div class="row">
                 <div class="col-lg-4">
                     <img src="${requestScope.avatar}" alt="Аватар">
                 </div>
                 <div class="col-lg-8">
-                    <label class="btn btn-default btn-file">
+                    <label class="btn btn-default btn-file" style="margin-bottom: 10px">
                         Выберите новый аватар
                         <input type="file" onchange="previewFile();" accept="image/*" name="avatar"
                                style="display: none;">
                     </label>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Сменить пароль</label>
-                    </div>
-
                     <label for="password" class="sr-only">Пароль</label>
                     <input type="password" id="password" name="password" class="form-control"
-                           placeholder="Пароль" required
+                           placeholder="Пароль"
                            style="border-top-left-radius: 4px; border-top-right-radius: 4px">
                     <label for="repeatPassword" class="sr-only">Пароль</label>
                     <input type="password" id="repeatPassword" name="repeatPassword" class="form-control"
-                           placeholder="Повторите Пароль" required>
+                           placeholder="Повторите Пароль">
                     <div id="form-error" class="alert alert-danger">
                         <c:if test="${not empty requestScope.errorMessage}">
                             <strong>${requestScope.errorMessage}</strong>

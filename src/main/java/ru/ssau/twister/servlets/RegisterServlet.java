@@ -63,7 +63,7 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
-            Optional<User> user = userDao.findByUsername(credentials.getUsername());
+            Optional<User> user = userDao.findUserCredentialsByName(credentials.getUsername());
 
             if (user.isPresent()) {
                 session.setAttribute("errorMessage", "Такой пользователь уже существует");
