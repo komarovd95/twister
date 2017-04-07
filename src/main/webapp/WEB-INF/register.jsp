@@ -29,7 +29,7 @@
                 <strong>${requestScope.errorMessage}</strong>
             </c:if>
         </div>
-        <a href="<c:url value="/login"/>">Нет аккаунта?</a>
+        <a href="<c:url value="/login"/>">Есть аккаунт?</a>
         <input type="submit" class="btn btn-lg btn-success btn-block" value="Регистрация">
     </form>
 </div>

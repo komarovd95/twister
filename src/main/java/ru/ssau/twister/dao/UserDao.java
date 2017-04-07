@@ -76,7 +76,7 @@ public class UserDao {
                             "count(CASE WHEN f.followee_id = u.user_id THEN 1 END), " +
                             "count(CASE WHEN f.follower_id = u.user_id THEN 1 END), " +
                             "bool_or(f.followee_id = ?), bool_or(f.follower_id = ?) " +
-                        "FROM users u INNER JOIN follows f " +
+                        "FROM users u LEFT OUTER JOIN follows f " +
                             "ON (f.followee_id = u.user_id OR f.follower_id = u.user_id) " +
                         "WHERE u.user_name = ? " +
                         "GROUP BY u.user_id, u.user_name, u.user_avatar"

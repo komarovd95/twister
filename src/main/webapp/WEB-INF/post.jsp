@@ -6,16 +6,12 @@
 <t:index>
     <jsp:attribute name="head">
         <link href="<c:url value="../styles/landing.css" />" rel="stylesheet">
+        <script src="<c:url value="../js/profile.js"/>"></script>
     </jsp:attribute>
     <jsp:attribute name="title">
         Twister: Post #${requestScope.post.id}
     </jsp:attribute>
     <jsp:attribute name="header">
-        <li role="presentation">
-            <a href="<c:url value="/"/>">
-                Лента
-            </a>
-        </li>
         <li role="presentation">
             <a href="<c:url value="/logout"/>">
                 Выйти
@@ -45,6 +41,45 @@
                         Понравилось ${requestScope.post.likesCount} людям
                     </div>
                 </div>
+            </div>
+
+            <div class="col-lg-6 col-lg-offset-3 comments-feed">
+                <c:forEach items="${requestScope.comments}" var="comment">
+                    <div class="posts-list-item">
+                        <p>${comment.text}</p>
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-6" style="text-align:right">
+                                От <a href="<c:url value="/${comment.user.username}"/>">${comment.user.username}</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <c:if test="${requestScope.loggedUser.username eq comment.user.username}">
+                                    <a href="<c:url value="/deleteComment?commentId=${comment.id}&postId=${requestScope.post.id}"/>">
+                                        Удалить
+                                    </a>
+                                </c:if>
+                            </div>
+                            <div class="col-lg-6" style="text-align: right">
+                                <a class="${comment.likedByMe ? 'liked' : 'unliked'}"
+                                   href="<c:url value="${comment.likedByMe ? '/unlike' : '/like'}?redirectTo=/posts/${requestScope.post.id}&commentId=${comment.id}" />">
+                                    &#10084; ${comment.likesCount}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+
+            <div class="col-lg-6 col-lg-offset-3 comments-feed">
+                <form class="clearfix" action="<c:url value="/comment"/>" method="post">
+                    <h4>Новый комментарий</h4>
+                    <input type="hidden" name="post-id" value="${requestScope.post.id}">
+                    <textarea name="text" placeholder="Текст Вашего сообщения (не более 140 символов)"
+                              maxlength="140" onkeyup="postTextChange();" onchange="postTextChange();"></textarea>
+                    <input type="submit" class="btn btn-primary btn-block" value="Опубликовать" disabled>
+                </form>
             </div>
 
             <%--<div class="col-lg-3 sidebar">--%>

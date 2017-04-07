@@ -11,16 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PostDao {
-    private static final String FIND_POSTS_BY_USER_QUERY = "SELECT p.* FROM posts p " +
-            "INNER JOIN users u ON p.post_user_id = u.user_id WHERE u.user_id = ? ORDER BY p.post_date DESC";
-    private static final String SAVE_POST_QUERY = "INSERT INTO posts (post_text, post_date, post_user_id) VALUES(?, ?, ?)";
-    private static final String FIND_POST_BY_ID = "SELECT p.* FROM posts p WHERE p.post_id = ?";
-
-
     private final DatabaseService databaseService;
-
-    private PreparedStatement savePost;
-    private PreparedStatement findPostById;
 
     public PostDao() {
         databaseService = DatabaseService.getInstance();
@@ -113,46 +104,48 @@ public class PostDao {
     }
 
     public void savePost(Post post) {
-        if (savePost == null) {
-            savePost = databaseService.prepareStatement(SAVE_POST_QUERY);
+        try {
+            PreparedStatement statement = databaseService.prepareStatement(
+                    "INSERT INTO posts (post_text, post_date, post_user_id) VALUES (?, ?, ?)"
+            );
+
+            statement.setString(1, post.getText());
+            statement.setTimestamp(2, new Timestamp(post.getDate().getTime()));
+            statement.setLong(3, post.getUser().getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Cannot save post in POSTS table", e);
         }
-
-        databaseService.withTransaction(c -> {
-            try {
-                savePost.setString(1, post.getText());
-                savePost.setTimestamp(2, new Timestamp(post.getDate().getTime()));
-                savePost.setLong(3, post.getUser().getId());
-
-                savePost.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException("Cannot update value in USERS table", e);
-            }
-        });
     }
 
-    public Post findPostById(long id) {
-        if (findPostById == null) {
-            findPostById = databaseService.prepareStatement(FIND_POST_BY_ID);
-        }
-
+    public void likePost(Post post, User liker) {
         try {
-            findPostById.setLong(1, id);
+            PreparedStatement statement = databaseService.prepareStatement(
+                    "INSERT INTO posts_likes (post_id, user_id) VALUES(?, ?)"
+            );
 
-            ResultSet resultSet = findPostById.executeQuery();
+            statement.setLong(1, post.getId());
+            statement.setLong(2, liker.getId());
 
-            if (resultSet.next()) {
-                Post post = new Post();
-
-                post.setId(resultSet.getLong("post_id"));
-                post.setText(resultSet.getString("post_text"));
-                post.setDate(new Date(resultSet.getTimestamp("post_date").getTime()));
-
-                return post;
-            } else {
-                throw new RuntimeException("Cannot retrieve Post from POSTS table");
-            }
+            statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Cannot retrieve Post from POSTS table", e);
+            throw new RuntimeException("Cannot like post", e);
+        }
+    }
+
+    public void unlikePost(Post post, User liker) {
+        try {
+            PreparedStatement statement = databaseService.prepareStatement(
+                    "DELETE FROM posts_likes WHERE post_id = ? AND user_id = ?"
+            );
+
+            statement.setLong(1, post.getId());
+            statement.setLong(2, liker.getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Cannot unlike post", e);
         }
     }
 }

@@ -13,16 +13,6 @@
     </jsp:attribute>
     <jsp:attribute name="header">
         <li role="presentation">
-            <a href="<c:url value="/"/>">
-                Лента
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="#">
-                Поиск
-            </a>
-        </li>
-        <li role="presentation">
             <a href="<c:url value="/logout"/>">
                 Выйти
             </a>

@@ -34,7 +34,6 @@ public class DatabaseService {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(url, Objects.requireNonNull(user),
                     Objects.requireNonNull(password));
-            connection.setAutoCommit(false);
         } catch (IOException | SQLException | URISyntaxException | ClassNotFoundException e) {
             throw new RuntimeException("Cannot instantiate DatabaseService", e);
         }

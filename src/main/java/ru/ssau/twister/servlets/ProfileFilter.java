@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class ProfileFilter implements Filter {
     private static final Pattern PATTERN = Pattern.compile("^/[a-zA-Z0-9_]{4,20}$");
     private static final String[] PRESERVED_PATHS = new String[] {
-            "/login", "/loginRequest", "/register", "/edit", "/search"
+            "/login", "/loginRequest", "/register", "/registerRequest", "/edit", "/search"
     };
 
     private UserDao userDao;

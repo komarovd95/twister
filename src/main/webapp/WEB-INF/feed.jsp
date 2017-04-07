@@ -6,12 +6,16 @@
 <t:index>
     <jsp:attribute name="head">
         <link href="<c:url value="../styles/landing.css" />" rel="stylesheet">
-        <script src="<c:url value="../js/profile.js"/>"></script>
     </jsp:attribute>
     <jsp:attribute name="title">
-        Twister: ${requestScope.userProfile.username}
+        Twister: Лента
     </jsp:attribute>
     <jsp:attribute name="header">
+        <li role="presentation">
+            <a href="<c:url value="/feed"/>">
+                Лента
+            </a>
+        </li>
         <li role="presentation">
             <a href="<c:url value="/logout"/>">
                 Выйти
@@ -20,33 +24,7 @@
     </jsp:attribute>
     <jsp:body>
         <div class="row">
-            <div class="col-lg-3 sidebar">
-                <div class="square">
-                    <div class="crop">
-                        <img src="${requestScope.avatar}" alt="Avatar"/>
-                    </div>
-                </div>
-                <h4>${requestScope.userProfile.username}</h4>
-                <c:if test="${requestScope.itsMe}">
-                    <div class="list-group">
-                        <a href="<c:url value="/edit"/>" class="list-group-item">
-                            Редактировать
-                        </a>
-                        <a href="<c:url value="/logout"/>" class="list-group-item">
-                            Выйти
-                        </a>
-                    </div>
-                </c:if>
-            </div>
-            <div class="col-lg-9 posts-feed">
-                <c:if test="${requestScope.itsMe}">
-                    <form class="clearfix" action="posts" method="post">
-                        <h4>Новое сообщение</h4>
-                        <textarea name="text" placeholder="Текст Вашего сообщения (не более 140 символов)"
-                                  maxlength="140" onkeyup="postTextChange();" onchange="postTextChange();"></textarea>
-                        <input type="submit" class="btn btn-primary btn-block" value="Опубликовать" disabled>
-                    </form>
-                </c:if>
+            <div class="col-lg-12 posts-feed">
                 <div class="posts-list">
                     <h4>Сообщения от ${requestScope.userProfile.username}</h4>
                     <c:if test="${empty requestScope.posts}">
